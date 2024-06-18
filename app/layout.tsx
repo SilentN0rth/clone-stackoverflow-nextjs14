@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 // eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,16 +25,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ClerkProvider
-      appearance={{
-        elements: {
-          formButtonPrimary: "primary-gradient",
-          footerActionLink: "primary-text-gradient hover:text-primary-500",
-        },
-      }}>
-      <html lang="en">
-        <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-          <header>
+    <html lang="en">
+      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+        <ClerkProvider
+          appearance={{
+            elements: {
+              formButtonPrimary: "primary-gradient",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
+            },
+          }}>
+          <ThemeProvider>
+            <header>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </header>
+            <main>{children}</main>
+          </ThemeProvider>
+          {/* <header>
             <SignedOut>
               <SignInButton />
             </SignedOut>
@@ -41,9 +53,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <UserButton />
             </SignedIn>
           </header>
-          <main>{children}</main>
-        </body>
-      </html>
-    </ClerkProvider>
+          <main>{children}</main> */}
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

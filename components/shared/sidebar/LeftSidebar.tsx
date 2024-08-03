@@ -41,7 +41,7 @@ const LeftSidebar = () => {
                             height={20}
                             alt=""
                         />
-                        Logout
+                        <span className="max-lg:hidden">Logout</span>
                     </button>
                 </SignOutButton>
             </SignedIn>
@@ -49,7 +49,7 @@ const LeftSidebar = () => {
                 <div className="flex flex-col gap-3">
                     <Link href={"/sign-in"}>
                         <Button className="small-medium btn-secondary w-full rounded-lg p-5 shadow-none">
-                            <span className="primary-text-gradient hidden lg:inline-block">Log in</span>
+                            <span className="primary-text-gradient max-lg:hidden">Log in</span>
                             <Image
                                 src={"/assets/icons/login.svg"}
                                 width={22}
@@ -61,7 +61,7 @@ const LeftSidebar = () => {
                     </Link>
                     <Link href={"/sign-up"}>
                         <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 w-full rounded-lg p-4 shadow-none">
-                            <span className="hidden lg:inline-block">Sign up</span>
+                            <span className="max-lg:hidden">Sign up</span>
                             <Image
                                 src={"/assets/icons/signup.svg"}
                                 width={22}

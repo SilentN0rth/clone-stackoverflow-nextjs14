@@ -4,6 +4,7 @@ import "../globals.css";
 import React, { ReactNode } from "react";
 
 import LeftSidebar from "@/components/shared/sidebar/LeftSidebar";
+import RightSidebar from "@/components/shared/sidebar/RightSidebar";
 
 const Layout = ({ children }: { children: ReactNode }) => {
     return (
@@ -16,7 +17,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <section className="flex min-h-svh flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
                     <div className="mx-auto w-full max-w-5xl">{children}</div>
                 </section>
-                RightSidebar
+                {/* RightSidebar */}
+                <RightSidebar />
+                {/* RightSidebar */}
             </div>
             Toaster
         </main>

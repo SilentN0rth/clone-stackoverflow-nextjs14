@@ -51,7 +51,7 @@ const MobileNavbar = () => {
                 <Link href={"/"} className="flex items-center gap-1">
                     <Image src="/assets/images/site-logo.svg" width={23} height={23} alt="Devflow" />
                     <p className="h2-bold  text-dark100_light900 font-spaceGrotesk ">
-                        Dev<span className="text-primary-500">overflow</span>
+                        Dev<span className="text-primary-500">Overflow</span>
                     </p>
                 </Link>
                 <div className="flex flex-col justify-between">

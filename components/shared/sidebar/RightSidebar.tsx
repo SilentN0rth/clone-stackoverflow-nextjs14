@@ -52,7 +52,7 @@ const popularTags = [
 ];
 const RightSidebar = () => {
     return (
-        <aside className="background-light900_dark200 global-padding light-border custom-scrollbar text-dark500_light700 fixed inset-y-0 right-0 flex max-h-screen flex-col gap-16 overflow-y-auto border-l pt-36 max-xl:hidden">
+        <aside className="background-light900_dark200 global-padding light-border custom-scrollbar text-dark500_light700 sticky inset-y-0 right-0 flex max-h-screen flex-col gap-16 overflow-y-auto border-l pt-36 max-xl:hidden">
             <div className="grid gap-7">
                 <h3 className="h3-bold text-dark200_light900 ">Top Questions</h3>
                 {hotQuestions.map((question) => (

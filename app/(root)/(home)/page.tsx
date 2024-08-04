@@ -1,3 +1,5 @@
+import Filters from "@/components/shared/search/Filters";
+import LocalSearch from "@/components/shared/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
@@ -12,9 +14,15 @@ const Home = () => {
                 </Link>
             </div>
             <div className="flex justify-between gap-5 max-sm:flex-col sm:items-center">
-                LocalSearchbar
+                <LocalSearch
+                    route="/"
+                    iconPosition="left"
+                    imgSrc="/assets/icons/search.svg"
+                    placeholder="Search for Questions"
+                    otherClasess="flex-1"
+                />
                 {/*  */}
-                Filters
+                <Filters />
             </div>
         </div>
     );

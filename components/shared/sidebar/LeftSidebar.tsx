@@ -9,7 +9,7 @@ const LeftSidebar = () => {
     const pathname = usePathname();
 
     return (
-        <aside className="background-light900_dark200 global-padding light-border fixed inset-y-0 left-0 flex flex-col justify-between border-r pt-36 max-sm:hidden">
+        <aside className="background-light900_dark200 global-padding light-border sticky inset-y-0 left-0 flex flex-col justify-between border-r pt-36 max-sm:hidden">
             <div className="grid gap-y-5">
                 {sidebarLinks.map((link) => {
                     const isActive =

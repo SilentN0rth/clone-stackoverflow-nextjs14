@@ -20,7 +20,7 @@ const GlobalSearch = ({ route, iconPosition, imgSrc, placeholder, otherClasess }
                 placeholder={placeholder}
                 value={""}
                 onChange={() => {}}
-                className=" paragraph-regular no-focus placeholder background-light800_darkgradient  border-none shadow-none outline-none"
+                className="text-dark400_light700 paragraph-regular no-focus placeholder   border-none shadow-none outline-none"
             />
             {iconPosition === "right" && (
                 <Image src={imgSrc} width={24} height={24} alt="" className="cursor-pointer" />

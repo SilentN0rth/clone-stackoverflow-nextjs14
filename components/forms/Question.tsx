@@ -67,7 +67,7 @@ const Question = () => {
                 />
                 <FormField
                     control={form.control}
-                    name="title"
+                    name="tags"
                     render={({ field }) => (
                         <FormItem className="flex w-full flex-col">
                             <FormLabel className="paragraph-semibold text-dark400_light800">

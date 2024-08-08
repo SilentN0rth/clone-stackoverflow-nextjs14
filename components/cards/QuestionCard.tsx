@@ -23,8 +23,8 @@ interface QuestionProps {
 const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
     return (
         <div className="card-wrapper rounded-lg p-9 sm:px-11">
-            <div className="flex flex-col items-start justify-between gap-5 sm:flex-row">
-                <div>
+            <div className="flex flex-col items-start justify-between">
+                <div className="grid">
                     <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
                         {getTimestamp(createdAt)}
                     </span>
@@ -46,29 +46,32 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
                         value={author.name}
                         title={` - asked ${getTimestamp(createdAt)}`}
                         href={`/profile/${author._id}`}
+                        isAuthor={true}
                         textStyles="body-medium text-dark400_light700"
                     />
-                    <Metric
-                        imgUrl="/assets/icons/like.svg"
-                        alt=""
-                        value={formatNumber(upvotes)}
-                        title=" Votes"
-                        textStyles="small-medium text-dark400_light800"
-                    />
-                    <Metric
-                        imgUrl="/assets/icons/message.svg"
-                        alt=""
-                        value={formatNumber(answers.length)}
-                        title=" Answers"
-                        textStyles="small-medium text-dark400_light800"
-                    />
-                    <Metric
-                        imgUrl="/assets/icons/eye.svg"
-                        alt=""
-                        value={formatNumber(views)}
-                        title=" Views"
-                        textStyles="small-medium text-dark400_light800"
-                    />
+                    <div className="flex gap-3">
+                        <Metric
+                            imgUrl="/assets/icons/like.svg"
+                            alt=""
+                            value={formatNumber(upvotes)}
+                            title=" Votes"
+                            textStyles="small-medium text-dark400_light800"
+                        />
+                        <Metric
+                            imgUrl="/assets/icons/message.svg"
+                            alt=""
+                            value={formatNumber(answers.length)}
+                            title=" Answers"
+                            textStyles="small-medium text-dark400_light800"
+                        />
+                        <Metric
+                            imgUrl="/assets/icons/eye.svg"
+                            alt=""
+                            value={formatNumber(views)}
+                            title=" Views"
+                            textStyles="small-medium text-dark400_light800"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

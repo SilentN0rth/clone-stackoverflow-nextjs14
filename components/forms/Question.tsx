@@ -10,11 +10,17 @@ import { Input } from "@/components/ui/input";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-const type: string = "edit";
-
-const Question = () => {
+import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter } from "next/navigation";
+const type: string = "editing";
+interface Props {
+    mongoUserId: string;
+}
+const Question = ({ mongoUserId }: Props) => {
     const editorRef = useRef(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
+    // const pathname = usePathname();
     const form = useForm<z.infer<typeof QuestionsSchema>>({
         resolver: zodResolver(QuestionsSchema),
         defaultValues: {
@@ -25,12 +31,20 @@ const Question = () => {
     });
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+    async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
         setIsSubmitting(true);
         try {
             // make an async call to your API -> create a question
             // contain all form data
             // navigate to home page
+            await createQuestion({
+                title: values.title,
+                content: values.explanation,
+                tags: values.tags,
+                author: JSON.parse(mongoUserId),
+            });
+            // Navigate to homepage
+            router.push("/");
         } catch (err) {
             // error
         } finally {
@@ -107,6 +121,8 @@ const Question = () => {
                                         // @ts-ignore
                                         editorRef.current = editor;
                                     }}
+                                    onBlur={field.onBlur}
+                                    onEditorChange={(content) => field.onChange(content)}
                                     initialValue=""
                                     init={{
                                         height: 350,

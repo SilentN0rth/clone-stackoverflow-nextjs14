@@ -53,12 +53,13 @@ export async function deleteUser(params: DeleteUserParams) {
         // and questions, answers, comments, etc.
 
         // get user question ids
+        // eslint-disable-next-line no-unused-vars
         const userQuestionIds = await Question.find({ author: user._id }).distinct("_id");
 
-        await Question.deleteMany({author: user._id})
+        await Question.deleteMany({ author: user._id });
 
-        const deletedUser = await User.findByIdAndDelete(user._id)
-        return deletedUser
+        const deletedUser = await User.findByIdAndDelete(user._id);
+        return deletedUser;
     } catch (error) {
         console.log(error);
         throw error;

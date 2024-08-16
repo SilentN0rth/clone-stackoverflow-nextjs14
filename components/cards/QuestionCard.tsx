@@ -14,7 +14,7 @@ interface QuestionProps {
         _id: string;
         name: string;
         picture: string;
-    };
+    }[];
     upvotes: number;
     views: number;
     answers: Array<object>;
@@ -41,11 +41,11 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
                 </div>
                 <div className="flex-between mt-6 w-full flex-wrap gap-3">
                     <Metric
-                        imgUrl="/assets/icons/avatar.svg"
+                        imgUrl={author[0].picture}
                         alt=""
-                        value={author.name}
+                        value={author[0].name}
                         title={` - asked ${getTimestamp(createdAt)}`}
-                        href={`/profile/${author._id}`}
+                        href={`/profile/${author[0]._id}`}
                         isAuthor={true}
                         textStyles="body-medium text-dark400_light700"
                     />

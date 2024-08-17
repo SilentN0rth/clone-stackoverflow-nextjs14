@@ -20,8 +20,8 @@ const page = async () => {
                 <Filters filters={UserFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
             </div>
             <section className="flex flex-wrap gap-4">
-                {result.length > 0 ? (
-                    result.map((user) => <UserCard user={user} key={user._id} />)
+                {result.users.length > 0 ? (
+                    result.users.map((user) => <UserCard user={user} key={user._id} />)
                 ) : (
                     <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
                         <p>No users yet</p>

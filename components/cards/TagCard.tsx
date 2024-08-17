@@ -9,7 +9,6 @@ export interface Props {
 }
 const TagCard = ({ tag }: Props) => {
 
-    console.log()
 
     return (
         <article className="background-light900_dark200 light-border shadow-light100_darknone relative flex flex-col justify-center gap-3.5 rounded-2xl border px-8 py-10">

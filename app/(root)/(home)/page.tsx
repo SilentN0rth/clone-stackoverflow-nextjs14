@@ -8,10 +8,12 @@ import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 import React from "react";
 import { getQuestions } from "@/lib/actions/question.action";
+// import { getUserById } from "@/lib/actions/user.action";
+// import { auth } from "@clerk/nextjs/server";
 
 const Home = async () => {
     const result = await getQuestions({});
-    console.log(result);
+
     return (
         <div className="flex flex-col gap-11">
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">

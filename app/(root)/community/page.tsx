@@ -1,9 +1,38 @@
-import React from 'react'
+import UserCard from "@/components/cards/UserCard";
+import Filters from "@/components/shared/Filters";
+import LocalSearch from "@/components/shared/search/LocalSearch";
+import { UserFilters } from "@/constants/filters";
+import { getAllUsers } from "@/lib/actions/user.action";
+import Link from "next/link";
+const page = async () => {
+    const result = await getAllUsers({});
+    return (
+        <div className="grid gap-11">
+            <h1 className="h1-bold text-dark100_light900">All Questions</h1>
+            <div className="flex justify-between gap-5 max-sm:flex-col sm:items-center">
+                <LocalSearch
+                    route="/community"
+                    iconPosition="left"
+                    imgSrc="/assets/icons/search.svg"
+                    placeholder="Search for amazing minds"
+                    otherClasess="flex-1"
+                />
+                <Filters filters={UserFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
+            </div>
+            <section className="flex flex-wrap gap-4">
+                {result.length > 0 ? (
+                    result.map((user) => <UserCard user={user} key={user._id} />)
+                ) : (
+                    <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
+                        <p>No users yet</p>
+                        <Link href="/sign-up" className="mt-2  font-bold text-accent-blue">
+                            Join to be the first!
+                        </Link>
+                    </div>
+                )}
+            </section>
+        </div>
+    );
+};
 
-const AskQuestion = () => {
-  return (
-    <div>AskQuestion</div>
-  )
-}
-
-export default AskQuestion
+export default page;

@@ -1,5 +1,5 @@
 import HomeFilters from "@/components/home/HomeFilters";
-import Filters from "@/components/shared/Filters";
+import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
 import LocalSearch from "@/components/shared/search/LocalSearch";
@@ -31,7 +31,7 @@ const Home = async () => {
                     otherClasess="flex-1"
                 />
                 {/*  */}
-                <Filters
+                <Filter
                     filters={HomePageFilters}
                     otherClasses="min-h-[56px] sm:min-w-[170px"
                     containerClasses="hidden max-md:flex"

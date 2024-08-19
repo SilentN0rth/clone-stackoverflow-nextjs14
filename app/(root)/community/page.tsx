@@ -1,5 +1,5 @@
 import UserCard from "@/components/cards/UserCard";
-import Filters from "@/components/shared/Filters";
+import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
@@ -17,7 +17,7 @@ const page = async () => {
                     placeholder="Search for amazing minds"
                     otherClasess="flex-1"
                 />
-                <Filters filters={UserFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
+                <Filter filters={UserFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
             </div>
             <section className="flex flex-wrap gap-4">
                 {result.users.length > 0 ? (

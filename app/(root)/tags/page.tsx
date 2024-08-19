@@ -1,5 +1,5 @@
 import TagCard from "@/components/cards/TagCard";
-import Filters from "@/components/shared/Filters";
+import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { TagFilters } from "@/constants/filters";
@@ -17,7 +17,7 @@ const page = async () => {
                     placeholder="Search for tags"
                     otherClasess="flex-1"
                 />
-                <Filters filters={TagFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
+                <Filter filters={TagFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
             </div>
             <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {result.tags.length > 0 ? (

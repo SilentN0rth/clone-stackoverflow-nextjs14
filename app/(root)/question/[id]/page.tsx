@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Page = async ({ params, searchParams }) => {
+const Page = async ({ params, searchParams }: { params: any; searchParams: any }) => {
     const { userId: clerkId } = auth();
 
     let mongoUser;
@@ -38,7 +38,16 @@ const Page = async ({ params, searchParams }) => {
                         <p className="paragraph-semibold text-dark300_light700">{result.author.name}</p>
                     </Link>
                     <div className="flex justify-end">
-                        <Votes />
+                        <Votes
+                            type="question"
+                            itemId={JSON.stringify(result.id)}
+                            userId={JSON.stringify(mongoUser.id)}
+                            upvotes={result.upvotes.length}
+                            hasupVoted={result.upvotes.includes(mongoUser.id)}
+                            downvotes={result.downvotes.length}
+                            hasdownVoted={result.downvotes.includes(mongoUser.id)}
+                            hasSaved={mongoUser?.saved.includes(result.id)}
+                        />
                     </div>
                 </div>
                 <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">{result.title}</h2>

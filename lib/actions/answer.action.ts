@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { CreateAnswerParams, GetAnswersParams } from "./shared.types";
 import Question from "@/database/question.model";
 import { revalidatePath } from "next/cache";
+import console from "console";
 
 export async function createAnswer(params: CreateAnswerParams) {
     try {

@@ -3,7 +3,7 @@ import React from "react";
 import RenderTag from "../shared/RenderTag";
 import Metric from "../shared/Metric";
 import { formatNumber, getTimestamp } from "@/lib/utils";
-interface QuestionProps {
+export interface QuestionProps {
     _id: string;
     title: string;
     tags: {
@@ -15,9 +15,9 @@ interface QuestionProps {
         name: string;
         picture: string;
     };
-    upvotes: number;
+    upvotes: number[];
     views: number;
-    answers: Array<object>;
+    answers: {}[];
     createdAt: Date;
 }
 const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
@@ -53,7 +53,7 @@ const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, creat
                         <Metric
                             imgUrl="/assets/icons/like.svg"
                             alt=""
-                            value={formatNumber(upvotes)}
+                            value={formatNumber(upvotes.length)}
                             title=" Votes"
                             textStyles="small-medium text-dark400_light800"
                         />

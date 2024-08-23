@@ -1,27 +1,20 @@
-import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
-import NoResult from "@/components/shared/NoResult";
-import QuestionCard from "@/components/cards/QuestionCard";
 import LocalSearch from "@/components/shared/search/LocalSearch";
-import { Button } from "@/components/ui/button";
-import { HomePageFilters } from "@/constants/filters";
-import Link from "next/link";
+import { QuestionFilters } from "@/constants/filters";
 import React from "react";
-import { getQuestions } from "@/lib/actions/question.action";
-// import { getUserById } from "@/lib/actions/user.action";
-// import { auth } from "@clerk/nextjs/server";
-
+import { getSavedQuestions } from "@/lib/actions/user.action";
+import { auth } from "@clerk/nextjs/server";
+import NoResult from "@/components/shared/NoResult";
+import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
 export const Page = async () => {
-    const result = await getQuestions({});
+    const { userId } = auth();
+    if (!userId) return null;
+    const result = await getSavedQuestions({ clerkId: userId });
+    console.log(result);
 
     return (
         <div className="flex flex-col gap-11">
-            <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-                <h1 className="h1-bold text-dark100_light900">All Questions</h1>
-                <Link href={"/ask-question"} className="flex justify-end">
-                    <Button className="primary-gradient px-4 py-3 text-light-900">Ask a Question</Button>
-                </Link>
-            </div>
+            <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
             <div className="flex justify-between gap-5 max-sm:flex-col sm:items-center">
                 <LocalSearch
                     route="/"
@@ -31,16 +24,11 @@ export const Page = async () => {
                     otherClasess="flex-1"
                 />
                 {/*  */}
-                <Filter
-                    filters={HomePageFilters}
-                    otherClasses="min-h-[56px] sm:min-w-[170px"
-                    containerClasses="hidden max-md:flex"
-                />
+                <Filter filters={QuestionFilters} otherClasses="min-h-[56px] sm:min-w-[170px" />
             </div>
-            <HomeFilters />
             <div className="flex flex-col gap-6">
                 {result.questions.length > 0 ? (
-                    result.questions.map((question) => (
+                    result.questions.map((question: QuestionProps) => (
                         <QuestionCard
                             key={question._id}
                             _id={question._id}
@@ -55,7 +43,7 @@ export const Page = async () => {
                     ))
                 ) : (
                     <NoResult
-                        title={"There's no question to show"}
+                        title={"There's no question saved to show"}
                         description={
                             "Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
                         }

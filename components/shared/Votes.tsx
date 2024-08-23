@@ -1,6 +1,7 @@
 "use client";
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import { downvoteQuestion, upvoteQuestion } from "@/lib/actions/question.action";
+import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,7 +19,9 @@ interface Props {
 
 const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVoted, hasSaved }: Props) => {
     const path = usePathname();
-    const handleSave = () => {};
+    const handleSave = async () => {
+        await toggleSaveQuestion({ userId: JSON.parse(userId), questionId: JSON.parse(itemId), path, hasSaved });
+    };
     const handleVote = async (action: string) => {
         if (!userId) return;
         if (action === "upvote") {

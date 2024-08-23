@@ -2,7 +2,13 @@
 
 import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
-import { CreateUserParams, DeleteUserParams, GetAllUsersParams, UpdateUserParams } from "./shared.types";
+import {
+    CreateUserParams,
+    DeleteUserParams,
+    GetAllUsersParams,
+    ToggleSaveQuestionParams,
+    UpdateUserParams,
+} from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
@@ -89,6 +95,34 @@ export async function getAllUsers(params: GetAllUsersParams) {
         const users = await User.find({}).sort({ createdAt: -1 });
 
         return { users };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
+    try {
+        connectToDatabase();
+
+        const { userId, questionId, path, hasSaved } = params;
+
+        let updateQuery = {};
+
+        if (hasSaved) {
+            updateQuery = { $pull: { saved: questionId } };
+        } else if (!hasSaved) {
+            updateQuery = {
+                $push: { saved: questionId },
+            };
+        }
+
+        const user = await User.findByIdAndUpdate(userId, updateQuery, { new: true });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        revalidatePath(path);
     } catch (error) {
         console.log(error);
         throw error;

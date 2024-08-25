@@ -19,8 +19,9 @@ export interface QuestionProps {
     views: number;
     answers: {}[];
     createdAt: Date;
+    clerkId?: string;
 }
-const QuestionCard = ({ _id, title, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
+const QuestionCard = ({ _id, title, clerkId, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
     return (
         <div className="card-wrapper rounded-lg p-9 sm:px-11">
             <div className="flex flex-col items-start justify-between">

@@ -42,11 +42,11 @@ const Page = async ({ params }: URLProps) => {
                         <Votes
                             type="question"
                             itemId={JSON.stringify(result.id)}
-                            userId={JSON.stringify(mongoUser.id)}
+                            userId={JSON.stringify(mongoUser?.id)}
                             upvotes={result.upvotes.length}
-                            hasupVoted={result.upvotes.includes(mongoUser.id)}
+                            hasupVoted={result.upvotes.includes(mongoUser?.id)}
                             downvotes={result.downvotes.length}
-                            hasdownVoted={result.downvotes.includes(mongoUser.id)}
+                            hasdownVoted={result.downvotes.includes(mongoUser?.id)}
                             hasSaved={mongoUser?.saved.includes(result.id)}
                         />
                     </div>
@@ -86,12 +86,12 @@ const Page = async ({ params }: URLProps) => {
                 ))}
             </div>
 
-            <AllAnswers questionId={result._id} userId={mongoUser._id} totalAnswers={result.answers.length} />
+            <AllAnswers questionId={result._id} userId={mongoUser?._id} totalAnswers={result.answers.length} />
 
             <Answer
                 question={result.content}
                 questionId={JSON.stringify(result._id)}
-                authorId={JSON.stringify(mongoUser._id)}
+                authorId={JSON.stringify(mongoUser?._id)}
             />
         </>
     );

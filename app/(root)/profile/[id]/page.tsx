@@ -78,7 +78,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
                     <TabsContent value="top-posts">
                         <QuestionTab searchParams={searchParams} userId={userInfo.user._id} clerkId={clerkId} />
                     </TabsContent>
-                    <TabsContent value="answers">
+                    <TabsContent value="answers" className="flex flex-col gap-6">
                         <AnswersTab searchParams={searchParams} userId={userInfo.user._id} clerkId={clerkId} />
                     </TabsContent>
                 </Tabs>

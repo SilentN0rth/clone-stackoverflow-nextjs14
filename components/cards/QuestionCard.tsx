@@ -19,7 +19,7 @@ export interface QuestionProps {
     views: number;
     answers: {}[];
     createdAt: Date;
-    clerkId?: string;
+    clerkId?: string | null | undefined;
 }
 const QuestionCard = ({ _id, title, clerkId, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
     return (

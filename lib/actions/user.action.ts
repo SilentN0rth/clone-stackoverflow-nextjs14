@@ -5,7 +5,6 @@ import { connectToDatabase } from "../mongoose";
 import {
     CreateUserParams,
     DeleteUserParams,
-    GetAllUsersParams,
     GetSavedQuestionsParams,
     GetUserByIdParams,
     GetUserStatsParams,
@@ -138,7 +137,7 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     try {
         connectToDatabase();
 
-        const { clerkId,  searchQuery } = params;
+        const { clerkId, searchQuery } = params;
         const query: FilterQuery<typeof Question> = searchQuery
             ? { title: { $regex: searchQuery, $options: "i" } }
             : {};
@@ -185,7 +184,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
 export async function getUserQuestions(params: GetUserStatsParams) {
     try {
         connectToDatabase();
-        const { userId, } = params;
+        const { userId } = params;
         const totalQuestions = await Question.countDocuments({ author: userId });
 
         const userQuestions = await Question.find({ author: userId })

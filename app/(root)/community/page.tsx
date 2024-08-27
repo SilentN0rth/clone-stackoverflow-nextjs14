@@ -5,7 +5,7 @@ import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import Link from "next/link";
 const page = async () => {
-    const result = await getAllUsers({});
+    const result = await getAllUsers();
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Questions</h1>

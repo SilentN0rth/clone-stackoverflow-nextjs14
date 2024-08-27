@@ -1,12 +1,11 @@
 import { getUserQuestions } from "@/lib/actions/user.action";
 import React from "react";
 import QuestionCard from "../cards/QuestionCard";
-import { SearchParamsProps } from "@/types";
-interface Props extends SearchParamsProps {
+interface Props {
     userId: string;
     clerkId?: string | null | undefined;
 }
-const QuestionTab = async ({ searchParams, userId, clerkId }: Props) => {
+const QuestionTab = async ({ userId, clerkId }: Props) => {
     const result = await getUserQuestions({ userId, page: 1 });
     return result.questions.map((question) => (
         <QuestionCard

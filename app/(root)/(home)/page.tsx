@@ -12,7 +12,7 @@ import { getQuestions } from "@/lib/actions/question.action";
 // import { auth } from "@clerk/nextjs/server";
 
 const Home = async () => {
-    const result = await getQuestions({});
+    const result = await getQuestions();
 
     return (
         <div className="flex flex-col gap-11">

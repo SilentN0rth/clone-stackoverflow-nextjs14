@@ -6,7 +6,7 @@ import { getSavedQuestions } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
-export const Page = async () => {
+const Page = async () => {
     const { userId } = auth();
     if (!userId) return null;
     const result = await getSavedQuestions({ clerkId: userId });

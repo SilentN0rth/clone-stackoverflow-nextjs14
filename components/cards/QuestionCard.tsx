@@ -3,6 +3,8 @@ import React from "react";
 import RenderTag from "../shared/RenderTag";
 import Metric from "../shared/Metric";
 import { formatNumber, getTimestamp } from "@/lib/utils";
+import { SignedIn } from "@clerk/nextjs";
+import { EditDeleteAction } from "../shared/EditDeleteAction";
 export interface QuestionProps {
     _id: string;
     title: string;
@@ -12,6 +14,7 @@ export interface QuestionProps {
     }[];
     author: {
         _id: string;
+        clerkId: string;
         name: string;
         picture: string;
     };
@@ -22,9 +25,10 @@ export interface QuestionProps {
     clerkId?: string | null | undefined;
 }
 const QuestionCard = ({ _id, title, clerkId, tags, author, upvotes, views, answers, createdAt }: QuestionProps) => {
+    const showActionButtons = clerkId && clerkId === author.clerkId;
     return (
         <div className="card-wrapper rounded-lg p-9 sm:px-11">
-            <div className="flex flex-col items-start justify-between">
+            <div className={`grid grid-cols-[1fr,auto] items-start justify-between gap-x-5`}>
                 <div className="grid">
                     <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
                         {getTimestamp(createdAt)}
@@ -35,12 +39,15 @@ const QuestionCard = ({ _id, title, clerkId, tags, author, upvotes, views, answe
                         </h3>
                     </Link>
                 </div>
-                <div className="mt-3.5 flex flex-wrap gap-2">
+
+                <SignedIn>{showActionButtons && <EditDeleteAction type="Question" itemId={_id} />}</SignedIn>
+
+                <div className="col-span-2 mt-3.5 flex flex-wrap gap-2">
                     {tags.map((tag) => (
                         <RenderTag key={tag._id} name={tag.name} _id={tag._id} />
                     ))}
                 </div>
-                <div className="flex-between mt-6 w-full flex-wrap gap-3">
+                <div className={`flex-between col-span-2 mt-6 w-full flex-wrap gap-3 `}>
                     <Metric
                         imgUrl={author.picture}
                         alt=""

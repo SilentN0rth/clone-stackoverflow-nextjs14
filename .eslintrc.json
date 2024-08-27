@@ -1,6 +1,6 @@
 {
     "extends": ["next/core-web-vitals", "standard", "plugin:tailwindcss/recommended", "prettier"],
     "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
+        // "@typescript-eslint/no-unused-vars": "off"
     }
 }

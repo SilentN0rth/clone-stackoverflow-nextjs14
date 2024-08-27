@@ -21,7 +21,6 @@ interface Props {
 const Question = ({ mongoUserId, type, questionDetails }: Props) => {
     const { mode } = useTheme();
     const parsedQuestionDetails = type === "edit" && JSON.parse(questionDetails || "");
-    console.log(parsedQuestionDetails);
     const editorRef = useRef(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
@@ -61,9 +60,8 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                 });
                 router.push("/");
             }
-        } catch (err) {
-            // error
-            // console.log(err);
+        } catch (error) {
+            console.log(error);
         } finally {
             setIsSubmitting(false);
         }

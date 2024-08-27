@@ -11,7 +11,6 @@ const Page = async ({ params, searchParams }: URLProps) => {
         page: 1,
         searchQuery: searchParams.q,
     });
-    console.log(result);
     return (
         <div className="flex flex-col gap-11">
             <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>

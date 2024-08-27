@@ -10,7 +10,6 @@ const Page = async () => {
     const { userId } = auth();
     if (!userId) return null;
     const result = await getSavedQuestions({ clerkId: userId });
-    console.log(result);
 
     return (
         <div className="flex flex-col gap-11">

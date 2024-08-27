@@ -10,7 +10,7 @@ interface Props {
 }
 const NoResult = ({ title, description, link, linkTitle }: Props) => {
     return (
-        <div className="mt-10 flex flex-col items-center justify-center gap-6">
+        <div className="col-span-3 mt-10 flex flex-col items-center justify-center gap-6">
             <Image
                 src={"/assets/images/light-illustration.png"}
                 width={270}

@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/shared/navbar/Navbar";
 import "../globals.css";
+import "../../styles/prism.css";
 import React, { ReactNode } from "react";
 
 import LeftSidebar from "@/components/shared/sidebar/LeftSidebar";

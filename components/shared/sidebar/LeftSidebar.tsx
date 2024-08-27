@@ -3,17 +3,25 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+// import { auth } from "@clerk/nextjs/server";
 const LeftSidebar = () => {
     const pathname = usePathname();
-
+    const { userId } = useAuth();
     return (
         <aside className="background-light900_dark200 global-padding light-border sticky inset-y-0 left-0 flex flex-col justify-between border-r pt-36 max-sm:hidden">
             <div className="grid gap-y-5">
                 {sidebarLinks.map((link) => {
                     const isActive =
                         (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
+
+                    // TODO -> profile/:id
+                    if (link.route === "/profile") {
+                        if (userId) {
+                            link.route = `${link.route}/${userId}`;
+                        }
+                    }
                     return (
                         <Link
                             key={link.route}

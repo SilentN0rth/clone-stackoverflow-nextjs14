@@ -43,3 +43,8 @@ export const formatNumber = (num: number): string => {
         return num.toString();
     }
 };
+
+export const getJoinedDate = (date: Date) => {
+    const options = { year: "numeric", month: "long" } as object;
+    return date.toLocaleDateString("en-US", options);
+};

@@ -40,7 +40,7 @@ export async function getAllTags(params: GetAllTagsParams) {
 export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
     try {
         connectToDatabase();
-        const { tagId, page = 1, pageSize = 10, searchQuery } = params;
+        const { tagId, searchQuery } = params;
         const tagFilter: FilterQuery<ITag> = { _id: tagId };
 
         const tag = await Tag.findOne(tagFilter).populate({

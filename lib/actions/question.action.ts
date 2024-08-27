@@ -8,7 +8,6 @@ import {
     DeleteQuestionParams,
     EditQuestionParams,
     GetQuestionByIdParams,
-    GetQuestionsParams,
     QuestionVoteParams,
 } from "./shared.types";
 import User from "@/database/user.model";

@@ -93,7 +93,7 @@ export async function deleteUser(params: DeleteUserParams) {
     }
 }
 
-export async function getAllUsers(params: GetAllUsersParams) {
+export async function getAllUsers() {
     try {
         connectToDatabase();
         // const { page = 1, pageSize = 10, filter, searchQuery } = params;
@@ -138,7 +138,7 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     try {
         connectToDatabase();
 
-        const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+        const { clerkId,  searchQuery } = params;
         const query: FilterQuery<typeof Question> = searchQuery
             ? { title: { $regex: searchQuery, $options: "i" } }
             : {};
@@ -185,7 +185,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
 export async function getUserQuestions(params: GetUserStatsParams) {
     try {
         connectToDatabase();
-        const { userId, page = 1, pageSize = 10 } = params;
+        const { userId, } = params;
         const totalQuestions = await Question.countDocuments({ author: userId });
 
         const userQuestions = await Question.find({ author: userId })
@@ -202,7 +202,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
 export async function getUserAnswers(params: GetUserStatsParams) {
     try {
         connectToDatabase();
-        const { userId, page = 1, pageSize = 10 } = params;
+        const { userId } = params;
         const totalAnswers = await Answer.countDocuments({ author: userId });
 
         const userAnswers = await Answer.find({ author: userId })

@@ -16,7 +16,7 @@ import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 
-export async function getQuestions(params: GetQuestionsParams) {
+export async function getQuestions() {
     try {
         connectToDatabase();
 

@@ -1,4 +1,3 @@
-"use client";
 import Navbar from "@/components/shared/navbar/Navbar";
 import "../globals.css";
 import "../../styles/prism.css";

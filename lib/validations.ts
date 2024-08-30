@@ -11,9 +11,21 @@ export const AnswerSchema = z.object({
 });
 
 export const ProfileSchema = z.object({
-    name: z.string().min(5).max(50),
-    username: z.string().min(5).max(50),
-    bio: z.string().min(10).max(250),
-    portfolioWebsite: z.string().url(),
-    location: z.string().min(5).max(50),
+    name: z.string().trim().min(5).max(50),
+    username: z.string().trim().min(5).max(50),
+    bio: z.string().trim().min(10).max(250),
+    portfolioWebsite: z
+        .string()
+        .trim()
+        .optional()
+        .refine((val) => val === undefined || val.length === 0 || /^https?:\/\/[^\s$.?#].[^\s]*$/.test(val), {
+            message: "Invalid URL format for website",
+        }), //
+    location: z
+        .string()
+        .trim()
+        .optional()
+        .refine((val) => val === undefined || val.length === 0 || (val.length >= 3 && val.length <= 50), {
+            message: "Location must be between 3 and 50 characters long",
+        }),
 });

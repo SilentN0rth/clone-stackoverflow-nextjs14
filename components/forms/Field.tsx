@@ -38,11 +38,28 @@ const Field = ({
                     </FormLabel>
                     <FormControl>
                         {type === "textarea" ? (
-                            <Textarea {...field} placeholder={placeholder} className={inputClasses} />
+                            <Textarea
+                                {...field}
+                                placeholder={placeholder}
+                                className={inputClasses}
+                                required={required}
+                            />
                         ) : type === "url" ? (
-                            <Input {...field} placeholder={placeholder} className={inputClasses} type={type} />
+                            <Input
+                                {...field}
+                                placeholder={placeholder}
+                                className={inputClasses}
+                                type={type}
+                                required={required}
+                            />
                         ) : (
-                            <Input {...field} placeholder={placeholder} className={inputClasses} type={type} />
+                            <Input
+                                {...field}
+                                placeholder={placeholder}
+                                className={inputClasses}
+                                type={type}
+                                required={required}
+                            />
                         )}
 
                         {/* <Input

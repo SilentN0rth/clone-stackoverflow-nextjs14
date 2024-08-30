@@ -97,7 +97,7 @@ const Profile = ({ clerkId, user }: Props) => {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="mt-9 grid flex-col place-content-start items-start justify-start gap-9 place-self-start sm:grid-cols-2 xl:grid-cols-2">
                 {PROFILE_FIELDS.map((field) => (
-                    <Field key={field.name} formControl={form.control} {...field} />
+                    <Field key={field.name} formControl={form.control} {...field} required={field.required} />
                 ))}
 
                 <div className="col-span-2 mt-7 flex justify-end text-white  xl:col-span-2">

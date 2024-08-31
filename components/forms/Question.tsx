@@ -197,24 +197,20 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                                             {field.value.map((tag: any) => (
                                                 <Badge
                                                     key={tag}
-                                                    className={`${type === "edit" ? "cursor-not-allowed " : ""} subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md px-4 py-2 capitalize `}>
+                                                    className="subtle-medium background-light800_dark300 text-light400_light500 flex cursor-pointer items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+                                                    onClick={() =>
+                                                        type !== "edit" ? handleTagRemove(tag, field) : () => {}
+                                                    }>
                                                     <p>{tag}</p>
-                                                    <Button
-                                                        className="h-0 p-0"
-                                                        disabled={type === "edit"}
-                                                        onClick={() =>
-                                                            type !== "edit"
-                                                                ? () => handleTagRemove(tag, field)
-                                                                : () => {}
-                                                        }>
+                                                    {type !== "edit" && (
                                                         <Image
                                                             src="/assets/icons/close.svg"
+                                                            alt="Close icon"
                                                             width={12}
                                                             height={12}
-                                                            alt=""
-                                                            className="object-contain invert-0 dark:invert"
+                                                            className=" object-contain invert-0 dark:invert"
                                                         />
-                                                    </Button>
+                                                    )}
                                                 </Badge>
                                             ))}
                                         </div>

@@ -4,8 +4,9 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
-const page = async () => {
-    const result = await getAllTags({});
+import { SearchParamsProps } from "@/types";
+const page = async ({ searchParams }: SearchParamsProps) => {
+    const result = await getAllTags({ searchQuery: searchParams.q });
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Tags </h1>

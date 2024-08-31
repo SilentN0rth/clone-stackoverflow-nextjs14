@@ -11,7 +11,7 @@ import { URLProps } from "@/types";
 const Page = async ({ params, searchParams }: URLProps) => {
     const { userId } = auth();
     if (!userId) return null;
-    const result = await getSavedQuestions({ clerkId: userId, searchQuery: searchParams.q });
+    const result = await getSavedQuestions({ clerkId: userId, searchQuery: searchParams.q, filter: searchParams.filter });
     return (
         <div className="flex flex-col gap-11">
             <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>

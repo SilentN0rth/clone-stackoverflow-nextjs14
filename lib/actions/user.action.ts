@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import {
     CreateUserParams,
     DeleteUserParams,
+    GetAllUsersParams,
     GetSavedQuestionsParams,
     GetUserByIdParams,
     GetUserStatsParams,
@@ -92,11 +93,19 @@ export async function deleteUser(params: DeleteUserParams) {
     }
 }
 
-export async function getAllUsers() {
+export async function getAllUsers({ searchQuery }: GetAllUsersParams) {
     try {
         connectToDatabase();
         // const { page = 1, pageSize = 10, filter, searchQuery } = params;
-        const users = await User.find({}).sort({ createdAt: -1 });
+
+        const query: FilterQuery<typeof User> = {};
+        if (searchQuery) {
+            query.$or = [
+                { name: { $regex: new RegExp(searchQuery, "i") } },
+                { username: { $regex: new RegExp(searchQuery, "i") } },
+            ];
+        }
+        const users = await User.find(query).sort({ createdAt: -1 });
 
         return { users };
     } catch (error) {
@@ -138,9 +147,13 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
         connectToDatabase();
 
         const { clerkId, searchQuery } = params;
-        const query: FilterQuery<typeof Question> = searchQuery
-            ? { title: { $regex: searchQuery, $options: "i" } }
-            : {};
+        const query: FilterQuery<typeof Question> = {};
+        if (searchQuery) {
+            query.$or = [
+                { title: { $regex: new RegExp(searchQuery, "i") } },
+                { content: { $regex: new RegExp(searchQuery, "i") } },
+            ];
+        }
 
         const user = await User.findOne({ clerkId }).populate({
             path: "saved",

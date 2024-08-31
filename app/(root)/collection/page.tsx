@@ -6,10 +6,11 @@ import { getSavedQuestions } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
-const Page = async () => {
+import { SearchParamsProps } from "@/types";
+const Page = async ({ searchParams }: SearchParamsProps) => {
     const { userId } = auth();
     if (!userId) return null;
-    const result = await getSavedQuestions({ clerkId: userId });
+    const result = await getSavedQuestions({ clerkId: userId, searchQuery: searchParams.q });
 
     return (
         <div className="flex flex-col gap-11">

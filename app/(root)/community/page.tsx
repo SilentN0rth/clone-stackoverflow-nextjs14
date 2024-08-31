@@ -3,9 +3,10 @@ import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
-const page = async () => {
-    const result = await getAllUsers();
+const page = async ({ searchParams }: SearchParamsProps) => {
+    const result = await getAllUsers({ searchQuery: searchParams.q });
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Questions</h1>

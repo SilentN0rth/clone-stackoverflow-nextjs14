@@ -13,8 +13,7 @@ import { SearchParamsProps } from "@/types";
 // import { auth } from "@clerk/nextjs/server";
 
 const Home = async ({ searchParams }: SearchParamsProps) => {
-    const result = await getQuestions({ searchQuery: searchParams.q });
-    console.log(searchParams.q);
+    const result = await getQuestions({ searchQuery: searchParams.q, filter: searchParams.filter });
     return (
         <div className="flex flex-col gap-11">
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -38,7 +37,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
                     containerClasses="hidden max-md:flex"
                 />
             </div>
-            <HomeFilters />
+            <HomeFilters  />
             <div className="flex flex-col gap-6">
                 {result.questions.length > 0 ? (
                     result.questions.map((question) => (

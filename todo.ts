@@ -6,3 +6,4 @@
 // 5. Fix interactions - deleting a post (question) removes interactions from the database + TAGS
 // 6. Fix text wrapping on profile page (too much content in one line doesn't cause text wrapping) + QUESTIONS/ANSWERS
 // 7. Make your own recommendation algorithm (filter / homepage)
+// 8. Clicking on filters multiple times causes the app to loop. (filter / homepage)

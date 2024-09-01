@@ -6,7 +6,7 @@ import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 const page = async ({ searchParams }: SearchParamsProps) => {
-    const result = await getAllTags({ searchQuery: searchParams.q });
+    const result = await getAllTags({ searchQuery: searchParams.q, filter: searchParams.filter });
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Tags </h1>

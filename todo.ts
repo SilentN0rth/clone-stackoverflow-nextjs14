@@ -7,3 +7,4 @@
 // 6. Fix text wrapping on profile page (too much content in one line doesn't cause text wrapping) + QUESTIONS/ANSWERS
 // 7. Make your own recommendation algorithm (filter / homepage)
 // 8. Clicking on filters multiple times causes the app to loop. (filter / pagination ) ALL PAGES
+// 9. Fix error: Only plain objects can be passed to Client Components from Server Components. /profile[id].

@@ -17,8 +17,14 @@ import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 import { QuestionProps } from "@/components/cards/QuestionCard";
 import { FilterQuery } from "mongoose";
+import { PAGE_SETTINGS } from "@/constants";
 
-export async function getQuestions({ searchQuery, filter, page = 1, pageSize = 20 }: GetQuestionsParams) {
+export async function getQuestions({
+    searchQuery,
+    filter,
+    page = PAGE_SETTINGS.page,
+    pageSize = PAGE_SETTINGS.pageSizes.questions,
+}: GetQuestionsParams) {
     const skipAmount = (page - 1) * pageSize;
     try {
         connectToDatabase();
@@ -62,7 +68,6 @@ export async function getQuestions({ searchQuery, filter, page = 1, pageSize = 2
             .sort(sortOptions);
         const totalQuestions = await Question.countDocuments(query);
         const isNext = totalQuestions > skipAmount + questions.length;
-        console.log(isNext);
         return { questions, isNext };
     } catch (error) {
         console.log(error);

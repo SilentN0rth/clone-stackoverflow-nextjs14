@@ -1,12 +1,18 @@
 import UserCard from "@/components/cards/UserCard";
 import Filter from "@/components/shared/Filter";
+import Pagination from "@/components/shared/Pagination";
 import LocalSearch from "@/components/shared/search/LocalSearch";
+import { PAGE_SETTINGS } from "@/constants";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 const page = async ({ searchParams }: SearchParamsProps) => {
-    const result = await getAllUsers({ searchQuery: searchParams.q, filter: searchParams.filter });
+    const result = await getAllUsers({
+        searchQuery: searchParams.q,
+        filter: searchParams.filter,
+        page: searchParams.page ? +searchParams.page : 1,
+    });
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Questions</h1>
@@ -32,6 +38,10 @@ const page = async ({ searchParams }: SearchParamsProps) => {
                     </div>
                 )}
             </section>
+            <Pagination
+                pageNumber={searchParams?.page ? +searchParams.page : PAGE_SETTINGS.page}
+                isNext={result.isNext}
+            />
         </div>
     );
 };

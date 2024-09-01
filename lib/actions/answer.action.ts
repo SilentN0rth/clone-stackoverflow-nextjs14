@@ -7,6 +7,7 @@ import Question from "@/database/question.model";
 import { revalidatePath } from "next/cache";
 import console from "console";
 import Interaction from "@/database/interaction.model";
+import { PAGE_SETTINGS } from "@/constants";
 
 export async function createAnswer(params: CreateAnswerParams) {
     try {
@@ -34,8 +35,8 @@ export async function getAnswers(params: GetAnswersParams) {
     try {
         connectToDatabase();
 
-        const { questionId, sortBy } = params;
-
+        const { questionId, sortBy, page = PAGE_SETTINGS.page, pageSize = PAGE_SETTINGS.pageSizes.answers } = params;
+        const skipAmount = (page - 1) * pageSize;
         let sortOptions = {};
 
         switch (sortBy) {
@@ -57,9 +58,12 @@ export async function getAnswers(params: GetAnswersParams) {
 
         const answers = await Answer.find({ question: questionId })
             .populate("author", "_id clerkId name picture")
-            .sort(sortOptions);
-
-        return { answers };
+            .sort(sortOptions)
+            .skip(skipAmount)
+            .limit(pageSize);
+        const totalAnswers = await Answer.countDocuments({ question: questionId });
+        const isNext = totalAnswers > pageSize * page;
+        return { answers, isNext };
     } catch (error) {
         console.log(error);
         throw error;

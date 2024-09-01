@@ -7,8 +7,11 @@ import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
 import Votes from "./Votes";
+import Pagination from "./Pagination";
+import { SearchParamsProps } from "@/types";
+import { PAGE_SETTINGS } from "@/constants";
 
-interface Props {
+interface Props extends SearchParamsProps {
     questionId: string;
     userId: string;
     totalAnswers: number;
@@ -16,7 +19,7 @@ interface Props {
     filter?: string;
 }
 
-const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }: Props) => {
+const AllAnswers = async ({ questionId, userId, totalAnswers, filter, page }: Props) => {
     const result = await getAnswers({
         questionId,
         page: page ? +page : 1,
@@ -31,7 +34,7 @@ const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }: Pr
                 <Filter filters={AnswerFilters} />
             </div>
 
-            <div>
+            <div className="mb-11">
                 {result.answers.map((answer) => (
                     <article key={answer._id} className="light-border border-b py-10">
                         <div className="flex items-center justify-between">
@@ -71,6 +74,7 @@ const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }: Pr
                     </article>
                 ))}
             </div>
+            <Pagination pageNumber={page ? +page : PAGE_SETTINGS.page} isNext={result.isNext} />
         </div>
     );
 };

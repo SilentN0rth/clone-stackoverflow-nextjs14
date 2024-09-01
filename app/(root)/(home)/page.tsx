@@ -10,6 +10,7 @@ import React from "react";
 import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
+import { PAGE_SETTINGS } from "@/constants";
 // import { getUserById } from "@/lib/actions/user.action";
 // import { auth } from "@clerk/nextjs/server";
 
@@ -17,7 +18,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
     const result = await getQuestions({
         searchQuery: searchParams.q,
         filter: searchParams.filter,
-        page: searchParams?.page ? +searchParams.page : 1,
+        page: searchParams.page ? +searchParams.page : 1,
     });
 
     return (
@@ -70,7 +71,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
                     />
                 )}
             </div>
-            <Pagination pageNumber={searchParams?.page ? +searchParams.page : 1} isNext={result.isNext} />
+            <Pagination pageNumber={searchParams?.page ? +searchParams.page : PAGE_SETTINGS.page} isNext={result.isNext} />
         </div>
     );
 };

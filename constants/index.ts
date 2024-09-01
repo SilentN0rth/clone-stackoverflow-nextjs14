@@ -71,3 +71,16 @@ export const BADGE_CRITERIA = {
         GOLD: 100000,
     },
 };
+
+export const PAGE_SETTINGS = {
+    page: 1, // default page start
+    pageSizes: {
+        topPostsAndAnswers: 10, // 10 posts and answers
+        answers: 15, // 15 answers
+        questions: 20, // 20 questions
+        community: 20, // 20 users
+        collections: 19, // +1 to show 20 // check if the next saved question is available
+        tags: 20, // 20 tags
+        tagsQuestions: 19, // +1 to show 20 // check if the next tag is available
+    },
+};

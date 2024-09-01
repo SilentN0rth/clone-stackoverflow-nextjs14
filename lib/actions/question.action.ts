@@ -18,7 +18,8 @@ import Interaction from "@/database/interaction.model";
 import { QuestionProps } from "@/components/cards/QuestionCard";
 import { FilterQuery } from "mongoose";
 
-export async function getQuestions({ searchQuery, filter }: GetQuestionsParams) {
+export async function getQuestions({ searchQuery, filter, page = 1, pageSize = 20 }: GetQuestionsParams) {
+    const skipAmount = (page - 1) * pageSize;
     try {
         connectToDatabase();
 
@@ -56,9 +57,13 @@ export async function getQuestions({ searchQuery, filter }: GetQuestionsParams) 
         const questions = await Question.find(query)
             .populate({ path: "tags", model: Tag })
             .populate({ path: "author", model: User })
+            .skip(skipAmount)
+            .limit(pageSize)
             .sort(sortOptions);
-
-        return { questions };
+        const totalQuestions = await Question.countDocuments(query);
+        const isNext = totalQuestions > skipAmount + questions.length;
+        console.log(isNext);
+        return { questions, isNext };
     } catch (error) {
         console.log(error);
         throw error;

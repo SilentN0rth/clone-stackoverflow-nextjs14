@@ -9,11 +9,17 @@ import Link from "next/link";
 import React from "react";
 import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
 // import { getUserById } from "@/lib/actions/user.action";
 // import { auth } from "@clerk/nextjs/server";
 
 const Home = async ({ searchParams }: SearchParamsProps) => {
-    const result = await getQuestions({ searchQuery: searchParams.q, filter: searchParams.filter });
+    const result = await getQuestions({
+        searchQuery: searchParams.q,
+        filter: searchParams.filter,
+        page: searchParams?.page ? +searchParams.page : 1,
+    });
+
     return (
         <div className="flex flex-col gap-11">
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -37,13 +43,13 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
                     containerClasses="hidden max-md:flex"
                 />
             </div>
-            <HomeFilters  />
+            <HomeFilters />
             <div className="flex flex-col gap-6">
                 {result.questions.length > 0 ? (
                     result.questions.map((question) => (
                         <QuestionCard
-                            key={question._id}
-                            _id={question._id}
+                            key={question._id as string}
+                            _id={question._id as string}
                             title={question.title}
                             tags={question.tags}
                             author={question.author}
@@ -64,6 +70,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
                     />
                 )}
             </div>
+            <Pagination pageNumber={searchParams?.page ? +searchParams.page : 1} isNext={result.isNext} />
         </div>
     );
 };

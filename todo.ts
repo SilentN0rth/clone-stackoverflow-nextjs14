@@ -8,3 +8,4 @@
 // 7. Make your own recommendation algorithm (filter / homepage)
 // 8. Clicking on filters multiple times causes the app to loop. (filter / pagination ) ALL PAGES
 // 9. Fix error: Only plain objects can be passed to Client Components from Server Components. /profile[id].
+// 10. Fix reputation system ()

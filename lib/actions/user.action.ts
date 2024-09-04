@@ -168,7 +168,13 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
 export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     try {
         connectToDatabase();
-        const { clerkId, searchQuery, filter, page = PAGE_SETTINGS.page, pageSize = PAGE_SETTINGS.pageSizes.collections } = params;
+        const {
+            clerkId,
+            searchQuery,
+            filter,
+            page = PAGE_SETTINGS.page,
+            pageSize = PAGE_SETTINGS.pageSizes.collections,
+        } = params;
         const skipAmount = (page - 1) * pageSize;
         const query: FilterQuery<typeof Question> = {};
         if (searchQuery) {
@@ -253,7 +259,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
         const skipAmount = (page - 1) * pageSize;
         const isNextQuestions = totalQuestions > page * pageSize;
         const userQuestions = await Question.find({ author: userId })
-            .sort({ views: -1, upvotes: -1 })
+            .sort({ createdAt: -1, views: -1, upvotes: -1 })
             .skip(skipAmount)
             .limit(pageSize)
             .populate("tags", "_id name")

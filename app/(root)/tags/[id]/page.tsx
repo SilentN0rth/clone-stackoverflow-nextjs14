@@ -1,6 +1,8 @@
 import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
+import Pagination from "@/components/shared/Pagination";
 import LocalSearch from "@/components/shared/search/LocalSearch";
+import { PAGE_SETTINGS } from "@/constants";
 import { getQuestionByTagId } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
 import React from "react";
@@ -8,15 +10,14 @@ import React from "react";
 const Page = async ({ params, searchParams }: URLProps) => {
     const result = await getQuestionByTagId({
         tagId: params.id,
-        page: 1,
         searchQuery: searchParams.q,
+        page: searchParams.page ? +searchParams.page : 1,
     });
-    console.log(result);
     return (
         <div className="flex flex-col gap-11">
             <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
             <LocalSearch
-                route="/"
+                route={`/tags/${params.id}`}
                 iconPosition="left"
                 imgSrc="/assets/icons/search.svg"
                 placeholder="Search tag Questions"
@@ -48,6 +49,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
                     />
                 )}
             </div>
+            <Pagination
+                pageNumber={searchParams.page ? +searchParams.page : PAGE_SETTINGS.page}
+                isNext={result.isNext}
+            />
         </div>
     );
 };

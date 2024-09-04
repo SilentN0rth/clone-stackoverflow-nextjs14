@@ -8,11 +8,18 @@ import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 import React from "react";
 import { getQuestions } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
+import { PAGE_SETTINGS } from "@/constants";
 // import { getUserById } from "@/lib/actions/user.action";
 // import { auth } from "@clerk/nextjs/server";
 
-const Home = async () => {
-    const result = await getQuestions({});
+const Home = async ({ searchParams }: SearchParamsProps) => {
+    const result = await getQuestions({
+        searchQuery: searchParams.q,
+        filter: searchParams.filter,
+        page: searchParams.page ? +searchParams.page : 1,
+    });
 
     return (
         <div className="flex flex-col gap-11">
@@ -42,8 +49,8 @@ const Home = async () => {
                 {result.questions.length > 0 ? (
                     result.questions.map((question) => (
                         <QuestionCard
-                            key={question._id}
-                            _id={question._id}
+                            key={question._id as string}
+                            _id={question._id as string}
                             title={question.title}
                             tags={question.tags}
                             author={question.author}
@@ -64,6 +71,7 @@ const Home = async () => {
                     />
                 )}
             </div>
+            <Pagination pageNumber={searchParams?.page ? +searchParams.page : PAGE_SETTINGS.page} isNext={result.isNext} />
         </div>
     );
 };

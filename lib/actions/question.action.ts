@@ -8,23 +8,67 @@ import {
     DeleteQuestionParams,
     EditQuestionParams,
     GetQuestionByIdParams,
+    GetQuestionsParams,
     QuestionVoteParams,
 } from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
+import { QuestionProps } from "@/components/cards/QuestionCard";
+import { FilterQuery } from "mongoose";
+import { PAGE_SETTINGS } from "@/constants";
 
-export async function getQuestions() {
+export async function getQuestions({
+    searchQuery,
+    filter,
+    page = PAGE_SETTINGS.page,
+    pageSize = PAGE_SETTINGS.pageSizes.questions,
+}: GetQuestionsParams) {
+    const skipAmount = (page - 1) * pageSize;
     try {
         connectToDatabase();
 
-        const questions = await Question.find({})
+        const query: FilterQuery<typeof Question> = {};
+        if (searchQuery) {
+            query.$or = [
+                { title: { $regex: new RegExp(searchQuery, "i") } },
+                { content: { $regex: new RegExp(searchQuery, "i") } },
+            ];
+        }
+
+        let sortOptions = {};
+
+        switch (filter) {
+            case "newest":
+                sortOptions = { createdAt: -1 };
+                break;
+            // case "recommended":
+            //     sortOptions = { upvotes: -1 };
+            //     break;
+
+            // make your own recommendation algorithm
+            // make your own recommendation algorithm
+            // make your own recommendation algorithm
+            case "frequent":
+                sortOptions = { views: -1 };
+                break;
+            case "unanswered":
+                query.answers = { $size: 0 };
+                break;
+            default:
+                break;
+        }
+
+        const questions = await Question.find(query)
             .populate({ path: "tags", model: Tag })
             .populate({ path: "author", model: User })
-            .sort({ createdAt: -1 });
-
-        return { questions };
+            .skip(skipAmount)
+            .limit(pageSize)
+            .sort(sortOptions);
+        const totalQuestions = await Question.countDocuments(query);
+        const isNext = totalQuestions > skipAmount + questions.length;
+        return { questions, isNext };
     } catch (error) {
         console.log(error);
         throw error;
@@ -63,7 +107,15 @@ export async function createQuestion(params: CreateQuestionParams) {
 
         // Create an interaction record for the user's ask_question action
 
+        await Interaction.create({
+            user: author,
+            action: "ask_question",
+            question: question._id,
+            tags: tagDocuments,
+        });
         // Increment author's reputation by +5 for creating a question
+
+        await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
 
         revalidatePath(path);
     } catch (error) {}
@@ -111,6 +163,9 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
         }
 
         // Increment author's reputation
+        await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -1 : 1 } });
+
+        await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -10 : 10 } });
         revalidatePath(path);
     } catch (error) {
         console.log(error);
@@ -145,6 +200,10 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
         }
 
         // Increment author's reputation
+        
+        await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? -2 : 2 } });
+        await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasdownVoted ? -10 : 10 } });
+
         revalidatePath(path);
     } catch (error) {
         console.log(error);
@@ -181,6 +240,23 @@ export async function editQuestion(params: EditQuestionParams) {
 
         await question.save();
         revalidatePath(path);
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export async function getHotQuestions() {
+    try {
+        connectToDatabase();
+
+        const hotQuestions = await Question.find({})
+            // .populate({ path: "tags", model: Tag })
+            // .populate({ path: "author", model: User })
+            .sort({ views: -1, upvotes: -1 })
+            .limit(5)
+            .lean();
+        return hotQuestions as QuestionProps[];
     } catch (error) {
         console.log(error);
         throw error;

@@ -9,7 +9,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useRef, useState } from "react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
-import Image from "next/image";
+import { toast } from "@/hooks/use-toast";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 
@@ -49,6 +49,9 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
                 editor.setContent("");
             }
+            return toast({
+                title: `Your answer has been submitted`,
+            });
         } catch (error) {
             console.log(error);
         } finally {

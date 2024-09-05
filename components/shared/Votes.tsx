@@ -26,7 +26,6 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
         await toggleSaveQuestion({ userId: JSON.parse(userId), questionId: JSON.parse(itemId), path, hasSaved });
         return toast({
             title: `Question ${!hasSaved ? "Saved in" : "Removed from"} your collection`,
-            variant: !hasSaved ? "default" : "destructive",
         });
     };
     const handleVote = async (action: string) => {
@@ -55,7 +54,6 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
             }
             return toast({
                 title: `Upvote ${!hasupVoted ? "Succesfull" : "Removed"}`,
-                variant: !hasupVoted ? "default" : "destructive",
             });
         }
         if (action === "downvote") {
@@ -79,7 +77,6 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
             // todo: show a toast
             return toast({
                 title: `Downvote ${!hasdownVoted ? "Succesfull" : "Removed"}`,
-                variant: !hasdownVoted ? "default" : "destructive",
             });
         }
     };

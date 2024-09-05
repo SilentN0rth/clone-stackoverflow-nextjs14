@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SignedIn, SignedOut, SignOutButton, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 // import { auth } from "@clerk/nextjs/server";
 const LeftSidebar = () => {
     const pathname = usePathname();
@@ -42,7 +43,13 @@ const LeftSidebar = () => {
             </div>
             <SignedIn>
                 <SignOutButton>
-                    <button className=" background-light900_dark200 text-dark300_light900 flex items-center gap-4 rounded-xl p-5 text-lg">
+                    <button
+                        onClick={() => {
+                            toast({
+                                title: `You have logged out successfully`,
+                            });
+                        }}
+                        className=" background-light900_dark200 text-dark300_light900 flex items-center gap-4 rounded-xl p-5 text-lg">
                         <Image
                             src={"/assets/icons/logout.svg"}
                             className="invert-colors"

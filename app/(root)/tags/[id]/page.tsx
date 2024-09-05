@@ -7,6 +7,11 @@ import { getQuestionByTagId } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
 import React from "react";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: `Tag | Dev Overflow`,
+};
+
 const Page = async ({ params, searchParams }: URLProps) => {
     const result = await getQuestionByTagId({
         tagId: params.id,

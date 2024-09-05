@@ -7,6 +7,12 @@ import { PAGE_SETTINGS } from "@/constants";
 import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchParamsProps } from "@/types";
+
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "All tags | Dev Overflow",
+};
+
 const page = async ({ searchParams }: SearchParamsProps) => {
     const result = await getAllTags({
         searchQuery: searchParams.q,

@@ -9,6 +9,11 @@ import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import { PAGE_SETTINGS } from "@/constants";
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Collections | Dev Overflow",
+};
+
 const Page = async ({ searchParams }: SearchParamsProps) => {
     const { userId } = auth();
     if (!userId) return null;

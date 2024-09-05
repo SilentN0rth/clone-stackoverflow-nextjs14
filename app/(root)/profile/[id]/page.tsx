@@ -14,6 +14,11 @@ import Stats from "@/components/shared/Stats";
 import AnswersTab from "@/components/shared/AnswersTab";
 import QuestionTab from "@/components/shared/QuestionTab";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Your Profile | Dev Overflow",
+};
+
 const Page = async ({ params, searchParams }: URLProps) => {
     const userInfo = await getUserInfo({ userId: params.id });
     const { userId: clerkId } = auth();
@@ -64,7 +69,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
                     </SignedIn>
                 </div>
             </div>
-            <Stats reputation={userInfo.reputation} totalQuestions={userInfo.totalQuestions} totalAnswers={userInfo.totalAnswers} badges={userInfo.badgeCounts} />
+            <Stats
+                reputation={userInfo.reputation}
+                totalQuestions={userInfo.totalQuestions}
+                totalAnswers={userInfo.totalAnswers}
+                badges={userInfo.badgeCounts}
+            />
             <div className="mt-10 flex gap-10">
                 <Tabs defaultValue="top-posts" className="flex-1">
                     <TabsList className="background-light800_dark400 p-1">

@@ -11,7 +11,6 @@ import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import { PAGE_SETTINGS } from "@/constants";
-import Loading from "./loading";
 // import { getUserById } from "@/lib/actions/user.action";
 // import { auth } from "@clerk/nextjs/server";
 
@@ -22,8 +21,6 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
         page: searchParams.page ? +searchParams.page : 1,
     });
 
-    // const isLoading = true;
-    // if (isLoading) return <Loading />;
     return (
         <div className="flex flex-col gap-11">
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">

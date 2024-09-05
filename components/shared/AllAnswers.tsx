@@ -8,10 +8,10 @@ import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
 import Votes from "./Votes";
 import Pagination from "./Pagination";
-import { SearchParamsProps } from "@/types";
+
 import { PAGE_SETTINGS } from "@/constants";
 
-interface Props extends SearchParamsProps {
+interface Props  {
     questionId: string;
     userId: string;
     totalAnswers: number;

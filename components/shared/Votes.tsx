@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "@/hooks/use-toast";
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import { viewQuestion } from "@/lib/actions/interaction.action";
 import { downvoteQuestion, upvoteQuestion } from "@/lib/actions/question.action";
@@ -23,9 +24,17 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
     const router = useRouter();
     const handleSave = async () => {
         await toggleSaveQuestion({ userId: JSON.parse(userId), questionId: JSON.parse(itemId), path, hasSaved });
+        return toast({
+            title: `Question ${!hasSaved ? "Saved in" : "Removed from"} your collection`,
+            variant: !hasSaved ? "default" : "destructive",
+        });
     };
     const handleVote = async (action: string) => {
-        if (!userId) return;
+        if (!userId)
+            return toast({
+                title: "Please log in to vote",
+                description: "You must to be logged in to perform this action",
+            });
         if (action === "upvote") {
             if (type === "question") {
                 await upvoteQuestion({
@@ -44,6 +53,10 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
                     path,
                 });
             }
+            return toast({
+                title: `Upvote ${!hasupVoted ? "Succesfull" : "Removed"}`,
+                variant: !hasupVoted ? "default" : "destructive",
+            });
         }
         if (action === "downvote") {
             if (type === "question") {
@@ -63,8 +76,12 @@ const Votes = ({ type, itemId, userId, upvotes, hasupVoted, downvotes, hasdownVo
                     path,
                 });
             }
+            // todo: show a toast
+            return toast({
+                title: `Downvote ${!hasdownVoted ? "Succesfull" : "Removed"}`,
+                variant: !hasdownVoted ? "default" : "destructive",
+            });
         }
-        // todo: show a toast
     };
 
     useEffect(() => {

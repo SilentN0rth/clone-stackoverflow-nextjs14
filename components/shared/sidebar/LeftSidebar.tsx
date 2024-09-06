@@ -12,7 +12,7 @@ const LeftSidebar = () => {
     const pathname = usePathname();
     const { userId } = useAuth();
     return (
-        <aside className="background-light900_dark200 global-padding light-border sticky inset-y-0 left-0 flex flex-col justify-between border-r pt-36 max-sm:hidden">
+        <aside className="custom-scrollbar background-light900_dark200 light-border sticky left-0 top-0 flex h-screen w-fit flex-col justify-between  overflow-y-auto border-r p-6 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]">
             <div className="grid gap-y-5">
                 {sidebarLinks.map((link) => {
                     const isActive =

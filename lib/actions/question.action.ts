@@ -19,6 +19,7 @@ import Interaction from "@/database/interaction.model";
 import { QuestionProps } from "@/components/cards/QuestionCard";
 import { FilterQuery } from "mongoose";
 import { PAGE_SETTINGS } from "@/constants";
+import { RenderTagProps } from "@/components/shared/RenderTag";
 
 export async function getQuestions({
     searchQuery,
@@ -293,7 +294,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
         // Get distinct tag IDs from user's interactions
         const distinctUserTagIds = [
             // @ts-ignore
-            ...new Set(userTags.map((tag: any) => tag._id)),
+            ...new Set(userTags.map((tag: RenderTagProps) => tag._id)),
         ];
 
         const query: FilterQuery<typeof Question> = {

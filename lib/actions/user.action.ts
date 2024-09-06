@@ -20,7 +20,7 @@ import { PAGE_SETTINGS } from "@/constants";
 import { BadgeCriteriaType } from "@/types";
 import { assignBadges } from "../utils";
 
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
     try {
         connectToDatabase();
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SignedIn, SignedOut, SignOutButton, useAuth } from "@clerk/nextjs";
+
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 // import { auth } from "@clerk/nextjs/server";
@@ -22,6 +23,8 @@ const LeftSidebar = () => {
                     if (link.route === "/profile") {
                         if (userId) {
                             link.route = `${link.route}/${userId}`;
+                        } else {
+                            return null;
                         }
                     }
                     return (

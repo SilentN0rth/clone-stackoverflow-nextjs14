@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     appearance={{
                         elements: {
                             formButtonPrimary: "primary-gradient",
-                            footerActionLink: "primary-text-gradient hover:text-primary-500",
+                            footerActionLink: "primary-text-gradient hover-support:hover:text-primary-500",
                         },
                     }}>
                     <ThemeProvider>

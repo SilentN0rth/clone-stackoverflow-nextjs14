@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { deleteQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteAnswer } from "@/lib/actions/answer.action";
+import { toast } from "@/hooks/use-toast";
 interface Props {
     type: string;
     itemId: string;
@@ -21,6 +22,9 @@ export const EditDeleteAction = ({ type, itemId }: Props) => {
         } else if (type === "Answer") {
             await deleteAnswer({ answerId: itemId, path });
         }
+        toast({
+            title: `Your ${type} has been deleted`,
+        });
     };
     return (
         <div className="flex items-center justify-end ">

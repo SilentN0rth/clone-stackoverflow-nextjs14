@@ -1,6 +1,6 @@
 "use server";
 import { FilterQuery } from "mongoose";
-import User from "@/database/user.model";
+import User, { IUser } from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import {
     CreateUserParams,
@@ -20,7 +20,7 @@ import { PAGE_SETTINGS } from "@/constants";
 import { BadgeCriteriaType } from "@/types";
 import { assignBadges } from "../utils";
 
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
     try {
         connectToDatabase();
 
@@ -70,7 +70,7 @@ export async function deleteUser(params: DeleteUserParams) {
 
         const { clerkId } = params;
 
-        const user = await User.findOneAndDelete({ clerkId });
+        const user = (await User.findOneAndDelete({ clerkId })) as unknown as IUser | null;
 
         if (!user) {
             throw new Error("User not found");

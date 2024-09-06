@@ -4,16 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 
 import React from "react";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 export const NavbarContent = () => {
     const pathname = usePathname();
+
+    const { userId } = useAuth();
     return (
         <section className="flex h-full flex-col gap-6 pt-16">
             {sidebarLinks.map((link) => {
                 const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
+                if (!userId && link.route === "/profile") {
+                    return null;
+                }
                 return (
                     <SheetClose asChild key={link.route}>
                         <Link
@@ -47,7 +52,9 @@ const MobileNavbar = () => {
                     className="invert-colors sm:hidden"
                 />
             </SheetTrigger>
-            <SheetContent side={"left"} className="border-none bg-light-900 dark:bg-dark-200">
+            <SheetContent
+                side={"left"}
+                className="custom-scrollbar overflow-y-auto border-none bg-light-900 dark:bg-dark-200">
                 <Link href={"/"} className="flex items-center gap-1">
                     <Image src="/assets/images/site-logo.svg" width={23} height={23} alt="Devflow" />
                     <p className="h2-bold  text-dark100_light900 font-spaceGrotesk ">

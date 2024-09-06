@@ -5,13 +5,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SignedIn, SignedOut, SignOutButton, useAuth } from "@clerk/nextjs";
+
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 // import { auth } from "@clerk/nextjs/server";
 const LeftSidebar = () => {
     const pathname = usePathname();
     const { userId } = useAuth();
     return (
-        <aside className="background-light900_dark200 global-padding light-border sticky inset-y-0 left-0 flex flex-col justify-between border-r pt-36 max-sm:hidden">
+        <aside className="custom-scrollbar background-light900_dark200 light-border sticky left-0 top-0 flex h-screen w-fit flex-col justify-between  overflow-y-auto border-r p-6 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]">
             <div className="grid gap-y-5">
                 {sidebarLinks.map((link) => {
                     const isActive =
@@ -21,6 +23,8 @@ const LeftSidebar = () => {
                     if (link.route === "/profile") {
                         if (userId) {
                             link.route = `${link.route}/${userId}`;
+                        } else {
+                            return null;
                         }
                     }
                     return (
@@ -42,7 +46,13 @@ const LeftSidebar = () => {
             </div>
             <SignedIn>
                 <SignOutButton>
-                    <button className=" background-light900_dark200 text-dark300_light900 flex items-center gap-4 rounded-xl p-5 text-lg">
+                    <button
+                        onClick={() => {
+                            toast({
+                                title: `You have logged out successfully`,
+                            });
+                        }}
+                        className=" background-light900_dark200 text-dark300_light900 flex items-center gap-4 rounded-xl p-5 text-lg">
                         <Image
                             src={"/assets/icons/logout.svg"}
                             className="invert-colors"

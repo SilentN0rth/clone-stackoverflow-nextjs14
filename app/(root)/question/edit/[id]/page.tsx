@@ -3,7 +3,10 @@ import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
-
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Edit Question | Dev Overflow",
+};
 const Page = async ({ params }: URLProps) => {
     const { userId } = auth();
     const mongoUser = await getUserById({ userId });

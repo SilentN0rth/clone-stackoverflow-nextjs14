@@ -9,9 +9,25 @@ import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import { PAGE_SETTINGS } from "@/constants";
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Collections | Dev Overflow",
+};
+
 const Page = async ({ searchParams }: SearchParamsProps) => {
     const { userId } = auth();
-    if (!userId) return null;
+    if (!userId) {
+        return (
+            <NoResult
+                title={"Sign in to view your saved questions"}
+                description={
+                    "Sign in to save questions and access them later. Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
+                }
+                link="/sign-in"
+                linkTitle="Sign in"
+            />
+        );
+    }
     const result = await getSavedQuestions({
         clerkId: userId,
         searchQuery: searchParams.q,

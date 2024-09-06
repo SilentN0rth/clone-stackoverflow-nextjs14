@@ -106,6 +106,9 @@ const config = {
             },
         },
     },
+    future: {
+        hoverOnlyWhenSupported: true,
+    },
     plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
 

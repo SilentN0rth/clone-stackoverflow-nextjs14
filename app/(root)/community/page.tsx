@@ -7,12 +7,18 @@ import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Community | Dev Overflow",
+};
+
 const page = async ({ searchParams }: SearchParamsProps) => {
     const result = await getAllUsers({
         searchQuery: searchParams.q,
         filter: searchParams.filter,
         page: searchParams.page ? +searchParams.page : 1,
     });
+
     return (
         <div className="grid gap-11">
             <h1 className="h1-bold text-dark100_light900">All Questions</h1>

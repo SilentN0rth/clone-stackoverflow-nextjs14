@@ -33,7 +33,7 @@ const Theme = () => {
                                     ? (localStorage.theme = item.value)
                                     : localStorage.removeItem("theme");
                             }}
-                            className="flex cursor-pointer items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400">
+                            className="flex cursor-pointer items-center gap-4 px-2.5 py-2 focus:bg-light-800 dark:focus:bg-dark-400 ">
                             <Image
                                 className={`${mode === item.value && "active-theme"}`}
                                 src={item.icon}

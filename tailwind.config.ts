@@ -89,7 +89,7 @@ const config = {
             },
             screens: {
                 xs: "420px",
-                "hover-support": { raw: "(hover: hover)" },
+                // "hover-support": { raw: "(hover: hover)" },
             },
             keyframes: {
                 "accordion-down": {
